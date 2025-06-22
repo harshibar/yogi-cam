@@ -206,6 +206,59 @@
             font-size: 14px;
         }
 
+        /* Stopwatch styles */
+        .stopwatch-container {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 24px 20px 18px 20px;
+            border-radius: 18px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.12), 0 1.5px 0 rgba(255,255,255,0.13);
+            text-align: center;
+            max-width: 340px;
+            margin: 0 auto 32px auto;
+            backdrop-filter: blur(12px);
+        }
+
+        .stopwatch-controls {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+        }
+
+        .stopwatch-btn {
+            padding: 10px 26px;
+            font-size: 15px;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: background 0.2s, box-shadow 0.2s;
+            box-shadow: 0 2px 8px rgba(78, 205, 196, 0.18);
+        }
+
+        .stopwatch-start {
+            background: linear-gradient(145deg, #4ecdc4, #44a08d);
+            color: white;
+        }
+        .stopwatch-start:hover {
+            background: linear-gradient(145deg, #44a08d, #4ecdc4);
+        }
+
+        .stopwatch-stop {
+            background: linear-gradient(145deg, #ff6b6b, #ee5a52);
+            color: white;
+        }
+        .stopwatch-stop:hover {
+            background: linear-gradient(145deg, #ee5a52, #ff6b6b);
+        }
+
+        .stopwatch-reset {
+            background: linear-gradient(145deg, #008CBA, #005f7f);
+            color: white;
+        }
+        .stopwatch-reset:hover {
+            background: linear-gradient(145deg, #007B9A, #008CBA);
+        }
+
         /* Responsive design */
         @media (max-width: 768px) {
             .container {
@@ -313,6 +366,7 @@
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
         }
+
     </style>
 </head>
 <body>
@@ -327,6 +381,7 @@
                     <div class="status-dot" id="streamStatus"></div>
                     <span>Live Stream Active</span>
                 </div>
+                <div class="stopwatch-display status-item" id="stopwatch-display">00:00:00</div>
                 <div class="status-item">
                     <span>📡 yogicam.local:5000</span>
                 </div>
@@ -351,10 +406,16 @@
                 <p>Connecting to Yogi Cam...</p>
             </div>
 
+            <div class="stopwatch-controls">
+                <button id="stopwatch-start-stop" class="stopwatch-btn stopwatch-start">Start</button>
+                <button id="stopwatch-reset" class="stopwatch-btn stopwatch-reset">Reset</button>
+            </div>
+
             <div class="controls">
                 <!-- <button class="control-btn secondary" onclick="toggleFullscreen()">
                     🔍 Fullscreen
                 </button> -->
+                
                 <button class="control-btn secondary" onclick="takeSnapshot()">
                     📸 Snapshot
                 </button>
@@ -494,6 +555,76 @@
             }, 2000);
         }
 
+        function initStopwatch() {
+            let startTime = 0;
+            let elapsedTime = 0;
+            let timerInterval = null;
+            let isRunning = false;
+            
+            const display = document.getElementById('stopwatch-display');
+            const startStopBtn = document.getElementById('stopwatch-start-stop');
+            const resetBtn = document.getElementById('stopwatch-reset');
+            
+            function startStop() {
+                if (isRunning) {
+                    stop();
+                } else {
+                    start();
+                }
+            }
+            
+            function start() {
+                startTime = Date.now() - elapsedTime;
+                timerInterval = setInterval(updateDisplay, 10);
+                isRunning = true;
+                
+                startStopBtn.textContent = 'Stop';
+                startStopBtn.classList.remove('stopwatch-start');
+                startStopBtn.classList.add('stopwatch-stop');
+            }
+            
+            function stop() {
+                clearInterval(timerInterval);
+                isRunning = false;
+                
+                startStopBtn.textContent = 'Start';
+                startStopBtn.classList.remove('stopwatch-stop');
+                startStopBtn.classList.add('stopwatch-start');
+            }
+            
+            function reset() {
+                clearInterval(timerInterval);
+                isRunning = false;
+                elapsedTime = 0;
+                
+                startStopBtn.textContent = 'Start';
+                startStopBtn.classList.remove('stopwatch-stop');
+                startStopBtn.classList.add('stopwatch-start');
+                
+                display.textContent = '00:00:00';
+            }
+            
+            function updateDisplay() {
+                elapsedTime = Date.now() - startTime;
+                
+                const totalSeconds = Math.floor(elapsedTime / 1000);
+                const minutes = Math.floor(totalSeconds / 60);
+                const seconds = totalSeconds % 60;
+                const centiseconds = Math.floor((elapsedTime % 1000) / 10);
+                
+                const formattedTime = 
+                    `${minutes.toString().padStart(2, '0')}:` +
+                    `${seconds.toString().padStart(2, '0')}:` +
+                    `${centiseconds.toString().padStart(2, '0')}`;
+                
+                display.textContent = formattedTime;
+            }
+            
+            // Event listeners
+            startStopBtn.addEventListener('click', startStop);
+            resetBtn.addEventListener('click', reset);
+        }
+
         // Initialize
         document.addEventListener('DOMContentLoaded', function() {
             console.log('🚀 DOM loaded - starting initialization');
@@ -520,6 +651,9 @@
                 
                 console.log('✅ Stream forced to display');
             }, 3000);
+
+            // Initialize stopwatch
+            initStopwatch();
             
             console.log('✅ Yogi Cam initialized');
         });
