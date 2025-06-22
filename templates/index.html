@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🐕 Yogi Cam - Live Stream</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Header */
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            position: relative;
+            z-index: 10;
+        }
+
+        .title {
+            font-size: 3.5rem;
+            font-weight: 800;
+            color: white;
+            margin: 10px;
+            padding-top: 15px;
+            text-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            /* animation: glow 2s ease-in-out infinite alternate; */
+        }
+
+        @keyframes glow {
+            from { text-shadow: 0 4px 20px rgba(0, 0, 0, 0.3); }
+            to { text-shadow: 0 4px 40px rgba(255, 255, 255, 0.4); }
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            color: rgba(255, 255, 255, 0.8);
+            font-weight: 300;
+        }
+
+        /* Main camera container */
+        .camera-container {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border-radius: 24px;
+            padding: 30px;
+            box-shadow: 
+                0 20px 60px rgba(0, 0, 0, 0.2),
+                inset 0 1px 0 rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            position: relative;
+            overflow: hidden;
+            animation: slideUp 0.8s ease-out;
+            max-width: 750px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        @keyframes slideUp {
+            from { transform: translateY(50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        /* Video stream */
+        .video-wrapper {
+            position: relative;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+            margin-bottom: 30px;
+            background: #000;
+            /* Fixed aspect ratio container */
+            aspect-ratio: 4/3;
+            min-height: 360px;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .video-stream {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            display: block;
+            border-radius: 16px;
+            transition: transform 0.3s ease;
+        }
+
+        /* Fullscreen styles */
+        /* .video-wrapper:fullscreen .video-stream {
+            border-radius: 0;
+            object-fit: contain;
+        } */
+
+        .video-wrapper:-webkit-full-screen .video-stream {
+            border-radius: 0;
+            object-fit: contain;
+        }
+
+        /* Placeholder when no video */
+        .video-placeholder {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: rgba(255, 255, 255, 0.6);
+            text-align: center;
+            font-size: 18px;
+            pointer-events: none;
+        }
+
+        .video-stream:hover {
+            transform: scale(1.02);
+        }
+
+        /* Status indicators */
+        .status-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 15px 20px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            backdrop-filter: blur(10px);
+        }
+
+        .status-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: white;
+            font-weight: 500;
+        }
+
+        .status-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #4ade80;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.5; }
+            100% { opacity: 1; }
+        }
+
+        /* Control buttons */
+        .controls {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .control-btn {
+            background: linear-gradient(145deg, #ff6b6b, #ee5a52);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 14px;
+            box-shadow: 0 4px 15px rgba(238, 90, 82, 0.3);
+        }
+
+        .control-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(238, 90, 82, 0.4);
+        }
+
+        .control-btn:active {
+            transform: translateY(0);
+        }
+
+        .control-btn.secondary {
+            background: linear-gradient(145deg, #4ecdc4, #44a08d);
+            box-shadow: 0 4px 15px rgba(78, 205, 196, 0.3);
+        }
+
+        .control-btn.secondary:hover {
+            box-shadow: 0 8px 25px rgba(78, 205, 196, 0.4);
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            margin-top: 40px;
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 14px;
+        }
+
+        /* Responsive design */
+        @media (max-width: 768px) {
+            .container {
+                padding: 15px;
+            }
+            
+            .title {
+                font-size: 2.5rem;
+                margin-bottom: 20px;
+            }
+            
+            .camera-container {
+                padding: 20px;
+                margin: 0 10px;
+                max-width: none;
+            }
+            
+            .video-wrapper {
+                max-width: none;
+                min-height: 250px;
+            }
+            
+            .status-bar {
+                flex-direction: column;
+                gap: 10px;
+                padding: 12px 15px;
+                text-align: center;
+            }
+            
+            .status-item {
+                justify-content: center;
+                font-size: 14px;
+            }
+            
+            .controls {
+                flex-direction: column;
+                align-items: center;
+                gap: 12px;
+            }
+            
+            .control-btn {
+                width: 100%;
+                max-width: 250px;
+                padding: 14px 24px;
+                font-size: 16px;
+            }
+            
+            .footer {
+                margin-top: 30px;
+                padding: 0 10px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .title {
+                font-size: 2rem;
+            }
+            
+            .camera-container {
+                padding: 15px;
+                margin: 0 5px;
+            }
+            
+            .video-wrapper {
+                min-height: 200px;
+            }
+            
+            .status-item {
+                font-size: 13px;
+            }
+            
+            .control-btn {
+                padding: 12px 20px;
+                font-size: 15px;
+            }
+        }
+
+        /* Loading animation - hidden by default */
+        .loading {
+            display: none;
+            text-align: center;
+            color: white;
+            font-size: 18px;
+            padding: 20px;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(0, 0, 0, 0.8);
+            border-radius: 12px;
+            backdrop-filter: blur(10px);
+        }
+
+        .spinner {
+            width: 40px;
+            height: 40px;
+            border: 4px solid rgba(255, 255, 255, 0.3);
+            border-top: 4px solid white;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 10px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1 class="title">🐕‍🦺 Yogi Cam</h1>
+        </header>
+
+        <main class="camera-container">
+            <div class="status-bar">
+                <div class="status-item">
+                    <div class="status-dot" id="streamStatus"></div>
+                    <span>Live Stream Active</span>
+                </div>
+                <div class="status-item">
+                    <span>📡 yogicam.local:5000</span>
+                </div>
+            </div>
+
+            <div class="video-wrapper">
+                <div class="video-placeholder" id="videoPlaceholder">
+                    <div style="font-size: 48px; margin-bottom: 10px;">📹</div>
+                    <div>Waiting for Yogi Cam...</div>
+                </div>
+                <img src="stream.mjpg" 
+                     class="video-stream" 
+                     alt="Yogi Live Stream"
+                     id="videoStream"
+                     onerror="handleStreamError()"
+                     onload="handleStreamLoad()"
+                     style="display: none;">
+            </div>
+
+            <div class="loading" id="loadingDiv">
+                <div class="spinner"></div>
+                <p>Connecting to Yogi Cam...</p>
+            </div>
+
+            <div class="controls">
+                <!-- <button class="control-btn secondary" onclick="toggleFullscreen()">
+                    🔍 Fullscreen
+                </button> -->
+                <button class="control-btn secondary" onclick="takeSnapshot()">
+                    📸 Snapshot
+                </button>
+            </div>
+        </main>
+
+        <footer class="footer">
+            <p>Made with ❤️ for Yogi • Powered by Raspberry Pi & PiCamera2</p>
+        </footer>
+    </div>
+
+    <script>
+        // Mobile detection and stream handling
+        function isMobile() {
+            return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+        }
+
+        function initializeStream() {
+            const video = document.getElementById('videoStream');
+            const placeholder = document.getElementById('videoPlaceholder');
+            
+            if (isMobile()) {
+                // Mobile-specific handling
+                console.log('Mobile device detected - using mobile stream approach');
+                
+                // Update placeholder for mobile
+                placeholder.innerHTML = `
+                    <div style="font-size: 48px; margin-bottom: 10px;">📱</div>
+                    <div>Loading mobile stream...</div>
+                    <div style="font-size: 14px; margin-top: 10px; opacity: 0.7;">Tap refresh if stream doesn't load</div>
+                `;
+                
+                // Add mobile-friendly stream loading
+                loadMobileStream();
+            } else {
+                // Desktop handling
+                video.src = 'stream.mjpg';
+            }
+        }
+
+        function loadMobileStream() {
+            const video = document.getElementById('videoStream');
+            
+            // Try loading with cache-busting for mobile
+            video.src = `stream.mjpg?mobile=1&t=${Date.now()}`;
+            
+            // Set a timeout for mobile
+            const mobileTimeout = setTimeout(() => {
+                if (video.style.display === 'none' || !video.complete) {
+                    console.log('Mobile stream timeout - showing error');
+                    showMobileError();
+                }
+            }, 10000); // 10 second timeout for mobile
+            
+            video.onload = function() {
+                clearTimeout(mobileTimeout);
+                handleStreamLoad();
+            };
+            
+            video.onerror = function() {
+                clearTimeout(mobileTimeout);
+                showMobileError();
+            };
+        }
+
+        function showMobileError() {
+            const placeholder = document.getElementById('videoPlaceholder');
+            placeholder.innerHTML = `
+                <div style="font-size: 48px; margin-bottom: 10px;">⚠️</div>
+                <div style="margin-bottom: 10px;">Stream unavailable on mobile</div>
+                <div style="font-size: 14px; opacity: 0.7; margin-bottom: 15px;">MJPEG streams may not work on all mobile browsers</div>
+                <button onclick="retryMobileStream()" style="background: rgba(255,255,255,0.2); color: white; border: 1px solid rgba(255,255,255,0.3); padding: 8px 16px; border-radius: 20px; font-size: 14px;">
+                    🔄 Retry
+                </button>
+            `;
+        }
+
+        function retryMobileStream() {
+            const placeholder = document.getElementById('videoPlaceholder');
+            placeholder.innerHTML = `
+                <div style="font-size: 48px; margin-bottom: 10px;">📱</div>
+                <div>Retrying mobile stream...</div>
+            `;
+            
+            setTimeout(() => {
+                loadMobileStream();
+            }, 1000);
+        }
+
+        // Handle stream errors
+        function handleStreamError() {
+            console.log('Stream connection issue detected');
+            document.getElementById('videoStream').style.display = 'none';
+            document.getElementById('videoPlaceholder').style.display = 'block';
+        }
+
+        // Handle stream load
+        function handleStreamLoad() {
+            hideLoading();
+            document.getElementById('videoStream').style.display = 'block';
+            document.getElementById('videoPlaceholder').style.display = 'none';
+            console.log('Stream loaded successfully');
+        }
+
+        // Show/hide loading
+        function showLoading() {
+            document.getElementById('loadingDiv').style.display = 'block';
+            document.querySelector('.video-wrapper').style.opacity = '0.5';
+        }
+
+        function hideLoading() {
+            document.getElementById('loadingDiv').style.display = 'none';
+            document.querySelector('.video-wrapper').style.opacity = '1';
+        }
+
+        // Take snapshot
+        function takeSnapshot() {
+            const video = document.getElementById('videoStream');
+            const canvas = document.createElement('canvas');
+            const ctx = canvas.getContext('2d');
+            
+            canvas.width = video.naturalWidth || video.width;
+            canvas.height = video.naturalHeight || video.height;
+            
+            // Note: This won't work with img tag, but provides the UI feedback
+            const link = document.createElement('a');
+            link.download = `yogi-snapshot-${Date.now()}.jpg`;
+            link.href = video.src;
+            link.click();
+            
+            // Visual feedback
+            const btn = event.target;
+            const originalText = btn.textContent;
+            btn.textContent = '✅ Saved!';
+            setTimeout(() => {
+                btn.textContent = originalText;
+            }, 2000);
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('🚀 DOM loaded - starting initialization');
+            
+            // Immediate check
+            const video = document.getElementById('videoStream');
+            const placeholder = document.getElementById('videoPlaceholder');
+            
+            console.log('🔍 Initial state:');
+            console.log('- Video element:', video);
+            console.log('- Video src:', video ? video.src : 'not found');
+            console.log('- Placeholder element:', placeholder);
+            
+            // Force show stream after 3 seconds (MJPEG onload doesn't always fire)
+            setTimeout(() => {
+                console.log('🔍 3-second timeout reached - forcing stream display');
+                console.log('- Video complete:', video.complete);
+                console.log('- Video naturalWidth:', video.naturalWidth);
+                
+                // Force show the stream
+                video.style.display = 'block';
+                placeholder.style.display = 'none';
+                hideLoading();
+                
+                console.log('✅ Stream forced to display');
+            }, 3000);
+            
+            console.log('✅ Yogi Cam initialized');
+        });
+    </script>
+</body>
+</html>
