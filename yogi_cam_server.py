@@ -19,7 +19,7 @@ from picamera2.outputs import FileOutput
 # Read the HTML file instead of hardcoded HTML
 def load_page():
     try:
-        with open('templates/index.html', 'r') as f:
+        with open('index.html', 'r') as f:
             return f.read()
     except FileNotFoundError:
         # Fallback to simple HTML if file not found
