@@ -31,8 +31,6 @@ This year, I hired a trainer to help with Yogi’s separation anxiety. He gave u
 
 ![Training plan](img/training_plan.png)
 
-<br>
-
 ## Finding a webcam
 
 Before training began, I needed a permanent baby cam to watch Yogi. I had a few options:
@@ -44,8 +42,6 @@ Before training began, I needed a permanent baby cam to watch Yogi. I had a few 
 The last option was the most viable (and seemed fun). I was already using AI at work (V0, Figma Make, and Claude), so I decided to try it out.
 
 ![Webcam options](img/finding_a_webcam.png)
-
-<br>
 
 ## Building an MVP
 
@@ -85,8 +81,6 @@ After switching libraries, it worked! 🎉
 
 ![How the MVP works](img/the_code.png)
 
-<br>
-
 ## It works! Now what?
 
 ### A stable camera setup
@@ -122,8 +116,6 @@ One day, I was talking about my app and its limitations with an engineer. They s
 
 I set it up and it worked!
 
-<br>
-
 ## What’s next?
 
 ### Audio recording
@@ -144,8 +136,6 @@ Right now, starting YogiCam requires many manual steps:
 
 This takes 2-3 minutes each time. Instead, I could add a physical button to the Raspberry Pi that triggers a bash script to run the Python script, start ngrok, and text me the link via an SMS API.
 
-<br>
-
 ## Reflections
 
 ### Building with AI
@@ -161,8 +151,6 @@ Before, Yogi would bark after 3 seconds alone. With the help of YogiCam, our tra
 It was fun using YogiCam to document milestones, like when Yogi laid down. Yes, that’s a big deal 😅 I had to text my family to celebrate:
 
 ![Go yogi](img/yogi_yay.png)
-
-<br>
 
 ## References
 
