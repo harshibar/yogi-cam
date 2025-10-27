@@ -1,4 +1,4 @@
-# How I Built YogiCam (doggy cam)
+# How I Built YogiCam
 
 ## TL;DR
 
