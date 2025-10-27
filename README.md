@@ -1,4 +1,4 @@
-# YogiCam (Raspberry Pi Doggy Cam)
+# How I Built YogiCam (doggy cam)
 
 ## TL;DR
 
