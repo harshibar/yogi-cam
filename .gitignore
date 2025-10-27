@@ -5,8 +5,6 @@
 *.JPEG
 
 # Other common image formats (optional)
-*.png
-*.PNG
 *.gif
 *.GIF
 *.bmp
