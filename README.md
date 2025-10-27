@@ -120,21 +120,15 @@ I set it up and it worked!
 
 ### Audio recording
 
-So far, I've been standing in my building's hallway during training sessions to hear Yogi’s barks. But now that I can use go outside of by building and stay connected (thanks to ngrok), there's a new issue: YogiCam doesn't capture audio.
+So far, I've been standing in my building's hallway during training sessions to hear Yogi’s barks. Now that I can use go outside of by building and stay connected (thanks to ngrok), there's a new issue: YogiCam doesn't capture audio.
 
 To solve this, I can attach a USB microphone to the Pi and update the Python script to stream audio. I could even add automatic bark detection that logs barks above a certain dB threshold.
 
 ### One-click start
 
-Right now, starting YogiCam requires many manual steps:
+Starting YogiCam requires a few manual steps (listed in [instructions.md](instructions.md)). This ends up taking 2-3 minutes each time.
 
-- Turn on the Pi
-- Log into my laptop
-- SSH into YogiCam + run the Python script
-- SSH into YogiCam (in a new terminal tab) to run ngrok
-- Text myself the livestream link
-
-This takes 2-3 minutes each time. Instead, I could add a physical button to the Raspberry Pi that triggers a bash script to run the Python script, start ngrok, and text me the link via an SMS API.
+Instead, I could automate this process with the press of a physical button. It would trigger a bash script to run the Python code, start ngrok, and text me the link via SMS.
 
 ## Reflections
 
