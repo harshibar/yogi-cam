@@ -75,7 +75,7 @@ I got a Python script that captured video, turned it into a livestream, and rend
 
 But the livestream wouldn't show up 😭
 
-After hours of debugging, I found [this blog post](https://kamranicus.com/building-a-raspberry-pi-3-baby-monitor/) about a similar project. The author used PiCamera2 (a newer Python library for Raspberry Pi cameras), whereas I suggested to use LibCamera (an older open-source library).
+After hours of debugging, I found [this blog post](https://kamranicus.com/building-a-raspberry-pi-3-baby-monitor/) about a similar project. The author used PiCamera2 (a newer Python library for Raspberry Pi cameras), whereas I was suggested to use LibCamera (an older open-source library).
 
 After switching libraries, it worked! 🎉
 
