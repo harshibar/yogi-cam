@@ -157,3 +157,12 @@ It was fun using YogiCam to document milestones, like when Yogi laid down. Yes, 
 
 - [PiCamera2 tutorial by RandomNerdTutorials](https://randomnerdtutorials.com/raspberry-pi-mjpeg-streaming-web-server-picamera2/)
 - [PiCamera2 Baby Monitor blog post by kamranicus](https://kamranicus.com/building-a-raspberry-pi-3-baby-monitor/)
+
+
+## Find me online
+
+💼 [LinkedIn](https://www.linkedin.com/in/hyerramreddy/)
+🍳 [Cooking YouTube](https://www.youtube.com/@souschefharshibar)
+📺 [Tech YouTube](https://www.youtube.com/c/harshibar)
+📸 [Instagram](https://www.instagram.com/harshibar/)
+🏃🏽 [Strava](https://strava.app.link/D8dWo5Yp5Tb)
