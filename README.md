@@ -2,7 +2,7 @@
 
 ## TL;DR
 
-I built a doggy cam (using Claude and a Raspberry Pi) to train my dog with separation anxiety.
+I built a doggy cam (using Claude and Raspberry Pi) to train my dog with separation anxiety.
 
 Before, he’d bark after being left alone for 3 seconds. Now, he can go 30+ minutes without barking!
 
