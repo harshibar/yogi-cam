@@ -1,4 +1,4 @@
-# I built a DIY doggy cam using Raspberry Pi 4 + Claude
+# How I Built YogiCam (a DIY doggy cam)
 
 ## TL;DR
 I built a doggy cam (using Claude and Raspberry Pi) to train my dog with separation anxiety.
