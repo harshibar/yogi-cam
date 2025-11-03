@@ -1,6 +1,6 @@
 # How I Built YogiCam (a DIY doggy cam)
 
-## TL;DR
+### TL;DR
 I built a doggy cam (using Claude and Raspberry Pi) to train my dog with separation anxiety.
 
 Before, he’d bark after being left alone for 3 seconds. Now, he can go 30+ minutes without barking!
