@@ -1,4 +1,4 @@
-# How I Built YogiCam
+# I built a DIY doggy cam using Raspberry Pi 4 + Claude
 
 ![YogiCam overview](img/tldr.png)
 
