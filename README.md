@@ -1,7 +1,6 @@
 # I built a DIY doggy cam using Raspberry Pi 4 + Claude
 
-![YogiCam overview](img/tldr.png)
-
+## TL;DR
 I built a doggy cam (using Claude and Raspberry Pi) to train my dog with separation anxiety.
 
 Before, he’d bark after being left alone for 3 seconds. Now, he can go 30+ minutes without barking!
@@ -12,6 +11,8 @@ Before, he’d bark after being left alone for 3 seconds. Now, he can go 30+ min
 - Python + PiCamera2 + Flask to livestream to a HTML site
 - Ngrok to view the site from any network
 - Claude to write the code and connect everything
+
+![YogiCam overview](img/tldr.png)
 
 <br>
 
