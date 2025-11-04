@@ -26,15 +26,7 @@ This is my dog Yogi. I adopted him 6 years ago, and we’ve lived in 3 states (T
 
 By age three, Yogi had lived in four different homes. As a result, he developed [separation anxiety](https://en.wikipedia.org/wiki/Separation_anxiety_in_dogs) — he’d bark incessantly (every 5-10 seconds) if I left him alone. This year, I hired a trainer to help with Yogi’s separation anxiety. He gave us an 8-week training plan with daily exercises. Here's an example:
 
-- walk to the door, jiggle doorknob, return
-- walk to the door, open door, step outside, close door,  wait  5 seconds, return 
-- walk to the door, open door, step outside, close door,  wait  20 seconds, return 
-- walk to the door, touch doorknob, return
-- walk to the door, open door,  close door,  return immediately
-- walk to the door, open door, step outside, close door,  wait  10 seconds, return 
-- walk to the door, open door, step outside, close door,  wait  15 seconds, return 
-- walk 1/2 way to the door, return
-- walk to the door, open door, step outside, close door,  wait  30 seconds, return 
+![Training plan](img/training_plan.png)
 
 ## Finding a webcam
 
