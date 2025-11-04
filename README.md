@@ -24,9 +24,7 @@ This is my dog Yogi. I adopted him 6 years ago, and we’ve lived in 3 states (T
 
 ![Harshita and Yogi](img/hello.png)
 
-By age three, Yogi had lived in four different homes. As a result, he developed [separation anxiety](https://en.wikipedia.org/wiki/Separation_anxiety_in_dogs) — he’d bark incessantly (every 5-10 seconds) if I left him alone.
-
-This year, I hired a trainer to help with Yogi’s separation anxiety. He gave us an 8-week training plan with daily exercises. Here's an example:
+By age three, Yogi had lived in four different homes. As a result, he developed [separation anxiety](https://en.wikipedia.org/wiki/Separation_anxiety_in_dogs) — he’d bark incessantly (every 5-10 seconds) if I left him alone. This year, I hired a trainer to help with Yogi’s separation anxiety. He gave us an 8-week training plan with daily exercises. Here's an example:
 
 ![Training plan](img/training_plan.png)
 
