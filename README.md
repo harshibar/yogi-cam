@@ -131,9 +131,9 @@ Instead, I could automate this process with the press of a physical button. It w
 
 ### Building with AI
 
-Looking back, it’s amazing that I could go from an idea to a working product in ~3 weeks. Especially since it’s been more than 5 years since I coded.
+Using AI gave me the confidence and momentum to go from idea → MVP in 2 days (even though I haven’t programmed in 5 years). LLMs have made programming simple, so I could focus on the fun part: building features that solve real problems. 
 
-LLMs have made programming simple, so I could focus on the fun part: building features that solve real problems. Like adding the stopwatch. Polishing the UI. Even opening `vim` and feeling like an engineer again.
+As I used the MVP and saw its impact on Yogi’s training, I felt invested in making it better. After training sessions, I’d ask Claude to help iterate on features, allowing me to go from “wouldn’t it be cool to have a stopwatch?” to a working stopwatch in minutes.
 
 ### **YogiCam’s impact**
 
